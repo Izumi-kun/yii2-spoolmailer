@@ -1,0 +1,22 @@
+{
+  "name": "izumi-kun/yii2-spoolmailer",
+  "description": "Implements email queue using SwiftMailer spool transport and yii2-swiftmailer extension",
+  "type": "yii2-extension",
+  "keywords": ["yii2", "extension", "spooling", "email", "queue", "swiftmailer", "yii2-swiftmailer"],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Viktor Khokhryakov",
+      "email": "viktor.khokhryakov@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "~2.0.0",
+    "yiisoft/yii2-swiftmailer": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "izumi\\spoolmailer\\": "src"
+    }
+  }
+}
