@@ -3,6 +3,7 @@
 namespace izumi\spoolmailer;
 
 use Yii;
+use yii\helpers\FileHelper;
 use yii\mail\MailEvent;
 use yii\mail\MessageInterface;
 
@@ -31,6 +32,10 @@ class Mailer extends \yii\swiftmailer\Mailer
      * @var string
      */
     public $spoolPath = '@runtime/mail_spool';
+    /**
+     * @var int the permission to be set for newly created spool directory.
+     */
+    public $spoolDirMode = 0777;
 
     /**
      * @var \Swift_Mailer Swift mailer instance with Spool Transport.
@@ -40,6 +45,15 @@ class Mailer extends \yii\swiftmailer\Mailer
      * @var \Swift_SpoolTransport Swift transport instance or its array configuration.
      */
     private $_spoolTransport;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        $this->spoolPath = Yii::getAlias($this->spoolPath);
+    }
 
     /**
      * @inheritdoc
@@ -61,10 +75,11 @@ class Mailer extends \yii\swiftmailer\Mailer
                 'constructArgs' => [
                     [
                         'class' => 'Swift_FileSpool',
-                        'constructArgs' => [Yii::getAlias($this->spoolPath)],
+                        'constructArgs' => [$this->spoolPath],
                     ],
                 ],
             ];
+            FileHelper::createDirectory($this->spoolPath, $this->spoolDirMode, true);
             $this->_spoolTransport = $this->createTransport($config);
         }
 
