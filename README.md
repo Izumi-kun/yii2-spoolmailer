@@ -29,7 +29,7 @@ return [
     //....
     'components' => [
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => 'izumi\spoolmailer\Mailer',
         ],
     ],
 ];
@@ -60,6 +60,12 @@ Process email queue by follow console command:
 
 ```
 ./yii mail/flush
+```
+
+CRON job:
+
+```
+*/5 * * * * php /var/www/yii-app/yii mail/flush >/dev/null 2>&1
 ```
 
 Since this extension extends [yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer) for further instructions refer to the [related section in the Yii Definitive Guide](http://www.yiiframework.com/doc-2.0/guide-tutorial-mailing.html).
