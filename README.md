@@ -2,7 +2,7 @@
 
 Implements email queue using [SwiftMailer](http://swiftmailer.org/) spool transport and [yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer) extension.
 
-##Installation
+## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
@@ -20,8 +20,7 @@ or add
 
 to the require section of your composer.json.
 
-Usage
------
+## Usage
 
 To use this extension, simply add the following code in your application configuration (both web and console):
 
