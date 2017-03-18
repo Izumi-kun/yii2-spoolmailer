@@ -14,7 +14,7 @@ class MailController extends Controller
 {
     public $defaultAction = 'flush';
     /**
-     * @var string|Mailer
+     * @var Mailer|array|string The mailer object or the application component ID of the mailer object.
      */
     public $mailer = 'mailer';
     /**

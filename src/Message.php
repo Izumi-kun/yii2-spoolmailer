@@ -12,14 +12,14 @@ use yii\base\InvalidCallException;
 class Message extends \yii\swiftmailer\Message
 {
     /**
-     * @var Mailer
+     * @var Mailer the mailer instance that created this message.
      */
     public $mailer;
 
     /**
      * Enqueue this email message.
      * @param Mailer $mailer the mailer that should be used to queue this message.
-     * If no mailer is given it will first check if [[mailer]] is set and if not,
+     * If no mailer is given it will first check if "mailer" property is set and if not,
      * the "mail" application component will be used instead.
      * @return bool whether this message is added to queue successfully.
      */
