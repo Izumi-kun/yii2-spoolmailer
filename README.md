@@ -2,6 +2,8 @@
 
 Implements email queue using [SwiftMailer](http://swiftmailer.org/) spool transport and [yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer) extension.
 
+[![Build Status](https://travis-ci.org/Izumi-kun/yii2-spoolmailer.svg?branch=master)](https://travis-ci.org/Izumi-kun/yii2-spoolmailer)
+
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
