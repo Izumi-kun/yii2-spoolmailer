@@ -3,13 +3,12 @@
 namespace izumi\spoolmailer;
 
 use yii\base\InvalidCallException;
-use yii\swiftmailer\Message;
 
 /**
  * Class allows creating `Message` from `Swift_Message` instance.
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
  */
-class ImportedMessage extends Message
+class ImportedMessage extends \yii\swiftmailer\Message
 {
     /**
      * @var \Swift_Message Swift message instance.
