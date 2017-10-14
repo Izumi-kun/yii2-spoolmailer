@@ -104,7 +104,7 @@ class Mailer extends \yii\swiftmailer\Mailer
      */
     protected function createSwiftSpoolMailer()
     {
-        return \Swift_Mailer::newInstance($this->getSpoolTransport());
+        return new \Swift_Mailer($this->getSpoolTransport());
     }
 
     /**
