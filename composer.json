@@ -4,6 +4,9 @@
   "type": "yii2-extension",
   "keywords": ["yii2", "extension", "spooling", "email", "queue", "swiftmailer", "yii2-swiftmailer"],
   "license": "BSD-3-Clause",
+  "scripts": {
+    "test": "phpunit --verbose"
+  },
   "authors": [
     {
       "name": "Viktor Khokhryakov",
