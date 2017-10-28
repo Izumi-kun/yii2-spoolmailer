@@ -11,4 +11,11 @@ $_SERVER['SCRIPT_FILENAME'] = __FILE__;
 require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
-Yii::setAlias('@izumi/tests/spoolmailer', __DIR__);
+Yii::setAlias('@tests', __DIR__);
+
+$config = require(__DIR__ . '/app/config/main.php');
+$app = new \yii\console\Application($config);
+
+foreach (glob(Yii::getAlias('@runtime/*'), GLOB_ONLYDIR) as $dir) {
+    \yii\helpers\FileHelper::removeDirectory($dir);
+}

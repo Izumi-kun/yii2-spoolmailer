@@ -24,7 +24,7 @@ or add
 
 to the require section of your composer.json.
 
-## Usage
+## Basic Usage
 
 To use this extension, add the following code in your application configuration (both web and console):
 

@@ -3,10 +3,11 @@
 namespace izumi\spoolmailer;
 
 use Yii;
-use yii\base\InvalidCallException;
+use yii\base\InvalidConfigException;
 
 /**
  * Extends `yii\swiftmailer\Message` to enable queuing.
+ *
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
  */
 class Message extends \yii\swiftmailer\Message
@@ -22,6 +23,7 @@ class Message extends \yii\swiftmailer\Message
      * If no mailer is given it will first check if "mailer" property is set and if not,
      * the "mail" application component will be used instead.
      * @return bool whether this message is added to queue successfully.
+     * @throws InvalidConfigException
      */
     public function queue(Mailer $mailer = null)
     {
@@ -31,7 +33,7 @@ class Message extends \yii\swiftmailer\Message
             $mailer = $this->mailer;
         }
         if (!$mailer instanceof Mailer) {
-            throw new InvalidCallException('The mailer should be an instance of "\izumi\spoolmailer\Mailer".');
+            throw new InvalidConfigException('The mailer should be an instance of "\izumi\spoolmailer\Mailer".');
         }
         return $mailer->queue($this);
     }

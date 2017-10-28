@@ -1,46 +1,21 @@
 <?php
 
-namespace izumi\tests\spoolmailer;
+namespace tests;
 
-use izumi\spoolmailer\Mailer;
 use izumi\spoolmailer\MailerTransport;
-use izumi\spoolmailer\Message;
-use Yii;
-use yii\mail\MessageInterface;
 
+/**
+ * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
+ */
 class MailerTransportTest extends TestCase
 {
-    public function setUp()
-    {
-        $this->mockApplication([
-            'components' => [
-                'mailer' => [
-                    'class' => Mailer::className(),
-                    'useFileTransport' => true,
-                ],
-            ],
-        ]);
-    }
-
-    /**
-     * @return Message|MessageInterface test message instance.
-     */
-    protected function createTestMessage()
-    {
-        return Yii::$app->mailer->compose();
-    }
-
     public function testMailerTransport()
     {
-        $transport = new MailerTransport(Yii::$app->mailer);
-        $message = $this->createTestMessage();
-        $message->setTo('someuser@somedomain.com');
-        $message->setFrom('someuser@somedomain.com');
-        $message->setSubject('Test mailer transport');
-        $message->setTextBody('Test body');
-
-        $cnt = $transport->send($message->getSwiftMessage());
-        $this->assertEquals(1, $cnt, 'Unable to send message!');
+        $transport = new MailerTransport($this->getMailer());
+        $message = $this->createMessage();
+        $failedRecipients = [];
+        $cnt = $transport->send($message->getSwiftMessage(), $failedRecipients);
+        $this->assertEquals(1, $cnt);
+        $this->assertEmpty($failedRecipients);
     }
-
 }

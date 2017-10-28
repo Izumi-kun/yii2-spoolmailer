@@ -9,6 +9,7 @@ use yii\mail\MailerInterface;
 
 /**
  * Sends Messages using the `MailerInterface`.
+ *
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
  */
 class MailerTransport implements \Swift_Transport

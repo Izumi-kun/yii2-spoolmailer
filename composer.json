@@ -28,7 +28,12 @@
       "izumi\\spoolmailer\\": "src"
     }
   },
+  "suggest": {
+    "yiisoft/yii2-queue": "Need for QueueSpool."
+  },
   "require-dev": {
-    "phpunit/phpunit": "~6.4.0"
+    "phpunit/phpunit": "~6.4.0",
+    "yiisoft/yii2-queue": "~2.0.0",
+    "symfony/process": "*"
   }
 }

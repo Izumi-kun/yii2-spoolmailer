@@ -1,33 +1,65 @@
 <?php
 
-namespace izumi\tests\spoolmailer;
+namespace tests;
 
-use yii\helpers\ArrayHelper;
+use izumi\spoolmailer\Mailer;
+use Symfony\Component\Process\Process;
+use Yii;
+use yii\mail\MailerInterface;
+use yii\mail\MessageInterface;
+use yii\swiftmailer\Message;
 
+/**
+ * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
+ */
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @inheritdoc
+     * @return Mailer|MailerInterface
      */
-    protected function tearDown()
+    public function getMailer()
     {
-        parent::tearDown();
-        \Yii::$app = null;
+        return Yii::$app->getMailer();
     }
 
     /**
-     * Populates Yii::$app with a new application
-     * The application will be destroyed on tearDown() automatically.
-     * @param array $config The application configuration, if needed
-     * @param string $appClass name of the application class to create
+     * @param MessageInterface $message
+     * @return bool|string
      */
-    protected function mockApplication($config = [], $appClass = '\yii\console\Application')
+    public function getMessageFilePath(MessageInterface $message)
     {
-        new $appClass(ArrayHelper::merge([
-            'id' => 'testapp',
-            'basePath' => __DIR__,
-            'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-        ], $config));
+        return Yii::getAlias($this->getMailer()->fileTransportPath . '/' . $message->getSubject());
     }
 
+    public function assertMessageNotSent(MessageInterface $message)
+    {
+        $this->assertFileNotExists($this->getMessageFilePath($message));
+    }
+
+    public function assertMessageSent(MessageInterface $message)
+    {
+        $this->assertFileExists($this->getMessageFilePath($message));
+    }
+
+    /**
+     * @return Message
+     */
+    public function createMessage()
+    {
+        $message = $this->getMailer()->compose();
+        $message->setSubject(uniqid() . '.eml');
+        $message->setFrom('from@domain.com');
+        $message->setTo('to@domain.com');
+        $class = static::class;
+        $message->setTextBody("Hello from `{$class}`!");
+
+        return $message;
+    }
+
+    public function runProcess($cmd)
+    {
+        $process = new Process(PHP_BINARY . " tests/yii {$cmd}");
+        $status = $process->run();
+        $this->assertEquals(0, $status);
+    }
 }

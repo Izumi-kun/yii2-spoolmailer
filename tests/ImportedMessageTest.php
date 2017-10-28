@@ -1,42 +1,21 @@
 <?php
 
-namespace izumi\tests\spoolmailer;
+namespace tests;
 
 use izumi\spoolmailer\ImportedMessage;
-use izumi\spoolmailer\Mailer;
-use izumi\spoolmailer\Message;
-use Yii;
-use yii\mail\MessageInterface;
 
+/**
+ * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
+ */
 class ImportedMessageTest extends TestCase
 {
-    public function setUp()
-    {
-        $this->mockApplication([
-            'components' => [
-                'mailer' => [
-                    'class' => Mailer::className(),
-                ],
-            ],
-        ]);
-    }
-
-    /**
-     * @return Message|MessageInterface test message instance.
-     */
-    protected function createTestMessage()
-    {
-        return Yii::$app->mailer->compose();
-    }
-
     public function testImportedMessage()
     {
-        $message = $this->createTestMessage();
-        $message->setSubject('Test imported message');
+        $message = $this->createMessage();
         $swiftMessage = $message->getSwiftMessage();
         $importedMessage = new ImportedMessage($swiftMessage);
+
         $this->assertEquals($swiftMessage, $importedMessage->getSwiftMessage());
         $this->assertEquals($message->getSubject(), $importedMessage->getSubject());
     }
-
 }

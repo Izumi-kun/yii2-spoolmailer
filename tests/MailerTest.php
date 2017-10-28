@@ -1,34 +1,24 @@
 <?php
 
-namespace izumi\tests\spoolmailer;
+namespace tests;
 
-use izumi\spoolmailer\Mailer;
+use izumi\spoolmailer\Message;
+use izumi\spoolmailer\spools\BaseSpool;
 
+/**
+ * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
+ */
 class MailerTest extends TestCase
 {
-    public function setUp()
+    public function testSpoolMailerClass()
     {
-        $this->mockApplication();
+        $mailer = $this->getMailer();
+        $this->assertInstanceOf(BaseSpool::class, $mailer->spoolMailer);
     }
 
-    public function testSpoolTransport()
+    public function testMessageClass()
     {
-        $mailer = new Mailer();
-
-        $transport = $mailer->getSpoolTransport();
-        $this->assertEquals('Swift_SpoolTransport', get_class($transport), 'Invalid transport class!');
-        $spool = $transport->getSpool();
-        $this->assertEquals('Swift_FileSpool', get_class($spool), 'Invalid spool class!');
-    }
-
-    /**
-     * @depends testSpoolTransport
-     */
-    public function testSwiftSpoolMailer()
-    {
-        $mailer = new Mailer();
-
-        $spoolMailer = $mailer->getSwiftSpoolMailer();
-        $this->assertEquals('Swift_Mailer', get_class($spoolMailer), 'Invalid mailer class!');
+        $message = $this->getMailer()->compose();
+        $this->assertInstanceOf(Message::class, $message);
     }
 }
