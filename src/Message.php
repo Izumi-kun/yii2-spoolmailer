@@ -32,14 +32,11 @@ class Message extends \yii\swiftmailer\Message
      */
     public function queue(Mailer $mailer = null)
     {
-        if ($mailer === null && $this->mailer === null) {
-            $mailer = Yii::$app->getMailer();
-        } elseif ($mailer === null) {
-            $mailer = $this->mailer;
-        }
+        $mailer = $mailer ?? $this->mailer ?? Yii::$app->getMailer();
         if (!$mailer instanceof Mailer) {
             throw new InvalidConfigException('The mailer should be an instance of "\izumi\spoolmailer\Mailer".');
         }
+
         return $mailer->queue($this);
     }
 }
