@@ -23,4 +23,11 @@ class MessageTest extends TestCase
         $this->expectException(InvalidConfigException::class);
         $message->queue();
     }
+
+    public function testDefaultMailer()
+    {
+        $message = new Message();
+        $result = $message->queue();
+        $this->assertTrue($result);
+    }
 }

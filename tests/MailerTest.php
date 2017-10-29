@@ -23,7 +23,30 @@ class MailerTest extends TestCase
 
     public function testMessageClass()
     {
-        $message = $this->getMailer()->compose();
+        $message = $this->createMessage();
         $this->assertInstanceOf(Message::class, $message);
+    }
+
+    /**
+     * @depends testSpoolMailerClass
+     * @depends testMessageClass
+     */
+    public function testQueue()
+    {
+        $message = $this->createMessage();
+        $success = $this->getMailer()->queue($message);
+        $this->assertTrue($success);
+    }
+
+    /**
+     * @depends testQueue
+     */
+    public function testFlush()
+    {
+        $message = $this->createMessage();
+        $mailer = $this->getMailer();
+        $mailer->queue($message);
+        $mailer->flushQueue();
+        $this->assertMessageSent($message);
     }
 }

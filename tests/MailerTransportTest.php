@@ -14,7 +14,7 @@ use izumi\spoolmailer\MailerTransport;
  */
 class MailerTransportTest extends TestCase
 {
-    public function testMailerTransport()
+    public function testSuccessSend()
     {
         $transport = new MailerTransport($this->getMailer());
         $message = $this->createMessage();
@@ -22,5 +22,15 @@ class MailerTransportTest extends TestCase
         $cnt = $transport->send($message->getSwiftMessage(), $failedRecipients);
         $this->assertEquals(1, $cnt);
         $this->assertEmpty($failedRecipients);
+    }
+
+    public function testFailedSend()
+    {
+        $transport = new MailerTransport($this->getMailer());
+        $message = $this->createInvalidMessage();
+        $failedRecipients = [];
+        $cnt = $transport->send($message->getSwiftMessage(), $failedRecipients);
+        $this->assertEquals(0, $cnt);
+        $this->assertNotEmpty($failedRecipients);
     }
 }

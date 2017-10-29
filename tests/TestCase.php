@@ -61,6 +61,17 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return $message;
     }
 
+    /**
+     * @return Message
+     */
+    public function createInvalidMessage()
+    {
+        $message = $this->createMessage();
+        $message->setSubject('invalid');
+
+        return $message;
+    }
+
     public function runProcess($cmd)
     {
         $process = new Process(PHP_BINARY . " tests/yii {$cmd}");

@@ -19,7 +19,12 @@ $config = [
             'useFileTransport' => true,
             'fileTransportCallback' => function (yii\mail\BaseMailer $mailer, yii\mail\MessageInterface $message) {
                 return $message->getSubject() ? : $mailer->generateMessageFileName();
-            }
+            },
+            'on beforeSend' => function (\yii\mail\MailEvent $event) {
+                if ($event->message->getSubject() === 'invalid') {
+                    $event->isValid = false;
+                }
+            },
         ],
         'fileSpool' => [
             'class' => izumi\spoolmailer\spools\FileSpool::class,
