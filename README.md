@@ -5,6 +5,8 @@ Implements email queue using [SwiftMailer](http://swiftmailer.org/) spool transp
 [![Latest Stable Version](https://poser.pugx.org/izumi-kun/yii2-spoolmailer/v/stable)](https://packagist.org/packages/izumi-kun/yii2-spoolmailer)
 [![Total Downloads](https://poser.pugx.org/izumi-kun/yii2-spoolmailer/downloads)](https://packagist.org/packages/izumi-kun/yii2-spoolmailer)
 [![Build Status](https://travis-ci.org/Izumi-kun/yii2-spoolmailer.svg?branch=master)](https://travis-ci.org/Izumi-kun/yii2-spoolmailer)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Izumi-kun/yii2-spoolmailer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Izumi-kun/yii2-spoolmailer/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Izumi-kun/yii2-spoolmailer/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Izumi-kun/yii2-spoolmailer/?branch=master)
 
 ## Installation
 
