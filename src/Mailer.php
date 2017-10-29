@@ -3,6 +3,7 @@
 namespace izumi\spoolmailer;
 
 use izumi\spoolmailer\spools\BaseSpool;
+use izumi\spoolmailer\spools\FileSpool;
 use yii\di\Instance;
 use yii\mail\MessageInterface;
 
@@ -17,12 +18,12 @@ class Mailer extends \yii\swiftmailer\Mailer
     /**
      * @var string message default class name.
      */
-    public $messageClass = 'izumi\spoolmailer\Message';
+    public $messageClass = Message::class;
     /**
      * @var BaseSpool|string|array
      */
     public $spoolMailer = [
-        'class' => 'izumi\spoolmailer\spools\FileSpool',
+        'class' => FileSpool::class,
     ];
 
     /**
@@ -31,7 +32,7 @@ class Mailer extends \yii\swiftmailer\Mailer
     public function init()
     {
         parent::init();
-        $this->spoolMailer = Instance::ensure($this->spoolMailer, BaseSpool::className());
+        $this->spoolMailer = Instance::ensure($this->spoolMailer, BaseSpool::class);
     }
 
     /**

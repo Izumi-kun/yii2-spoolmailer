@@ -26,7 +26,7 @@ class MailController extends Controller
         if (!parent::beforeAction($action)) {
             return false;
         }
-        $this->mailer = Instance::ensure($this->mailer, Mailer::className());
+        $this->mailer = Instance::ensure($this->mailer, Mailer::class);
 
         return true;
     }

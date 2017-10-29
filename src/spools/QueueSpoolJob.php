@@ -43,7 +43,7 @@ class QueueSpoolJob extends Object implements Job
     public function execute($queue)
     {
         /** @var BaseMailer $mailer */
-        $mailer = Instance::ensure($this->mailer, BaseMailer::className());
+        $mailer = Instance::ensure($this->mailer, BaseMailer::class);
         $message = new ImportedMessage($this->message);
         $mailer->send($message);
     }

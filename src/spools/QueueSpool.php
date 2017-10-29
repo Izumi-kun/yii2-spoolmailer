@@ -4,6 +4,7 @@ namespace izumi\spoolmailer\spools;
 
 use Swift_Mime_SimpleMessage;
 use Swift_Spool;
+use Swift_SpoolTransport;
 use Swift_Transport;
 use Yii;
 use yii\base\NotSupportedException;
@@ -26,7 +27,7 @@ class QueueSpool extends BaseSpool implements Swift_Spool
     /**
      * @var array the default configuration of jobs.
      */
-    public $jobConfig = ['class' => 'izumi\spoolmailer\spools\QueueSpoolJob'];
+    public $jobConfig = ['class' => QueueSpoolJob::class];
 
     /**
      * @inheritdoc
@@ -36,7 +37,7 @@ class QueueSpool extends BaseSpool implements Swift_Spool
         $this->queue = Instance::ensure($this->queue, Queue::className());
         parent::init();
         $this->setTransport([
-            'class' => 'Swift_SpoolTransport',
+            'class' => Swift_SpoolTransport::class,
             'constructArgs' => [$this],
         ]);
     }

@@ -33,7 +33,7 @@ return [
     //....
     'components' => [
         'mailer' => [
-            'class' => 'izumi\spoolmailer\Mailer',
+            'class' => izumi\spoolmailer\Mailer::class,
         ],
     ],
 ];
@@ -45,7 +45,7 @@ Add the following code in your console configuration:
 return [
     //....
     'controllerMap' => [
-        'mail' => 'izumi\spoolmailer\MailController',
+        'mail' => izumi\spoolmailer\MailController::class,
     ],
 ];
 ```

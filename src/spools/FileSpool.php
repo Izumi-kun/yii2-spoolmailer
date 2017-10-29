@@ -2,6 +2,8 @@
 
 namespace izumi\spoolmailer\spools;
 
+use Swift_FileSpool;
+use Swift_SpoolTransport;
 use Yii;
 use yii\helpers\FileHelper;
 use yii\mail\BaseMailer;
@@ -45,10 +47,10 @@ class FileSpool extends BaseSpool
             FileHelper::createDirectory($this->path, $this->dirMode, true);
         }
         $this->setTransport([
-            'class' => 'Swift_SpoolTransport',
+            'class' => Swift_SpoolTransport::class,
             'constructArgs' => [
                 [
-                    'class' => 'Swift_FileSpool',
+                    'class' => Swift_FileSpool::class,
                     'constructArgs' => [$this->path],
                 ],
             ],
@@ -60,7 +62,7 @@ class FileSpool extends BaseSpool
      */
     public function flush(BaseMailer $mailer, &$failedRecipients = null)
     {
-        /** @var \Swift_FileSpool $spool */
+        /** @var Swift_FileSpool $spool */
         $spool = $this->getTransport()->getSpool();
         $spool->setTimeLimit($this->timeLimit);
         $spool->setMessageLimit($this->messageLimit);
