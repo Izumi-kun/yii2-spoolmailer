@@ -42,7 +42,6 @@ class Mailer extends \yii\swiftmailer\Mailer
 
     /**
      * Add the given email message to queue.
-     * This method will log a message about the email being queued.
      * @param MessageInterface $message email message instance to be queued
      * @return bool whether the message has been sent successfully
      */

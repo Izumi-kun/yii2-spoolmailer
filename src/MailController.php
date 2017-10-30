@@ -11,7 +11,7 @@ use yii\console\Controller;
 use yii\di\Instance;
 
 /**
- * MailController
+ * CLI command for sending spooled messages.
  *
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
  */
