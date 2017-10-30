@@ -26,14 +26,10 @@ class MailController extends Controller
     /**
      * @inheritdoc
      */
-    public function beforeAction($action)
+    public function init()
     {
-        if (!parent::beforeAction($action)) {
-            return false;
-        }
+        parent::init();
         $this->mailer = Instance::ensure($this->mailer, Mailer::class);
-
-        return true;
     }
 
     /**
