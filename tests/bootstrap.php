@@ -13,9 +13,9 @@ require_once(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
 Yii::setAlias('@tests', __DIR__);
 
-$config = require(__DIR__ . '/app/config/main.php');
-$app = new \yii\console\Application($config);
-
-foreach (glob(Yii::getAlias('@runtime/*'), GLOB_ONLYDIR) as $dir) {
+foreach (glob(Yii::getAlias('@tests/app/runtime/*'), GLOB_ONLYDIR) as $dir) {
     \yii\helpers\FileHelper::removeDirectory($dir);
 }
+
+$config = require(__DIR__ . '/app/config/main.php');
+$app = new \yii\console\Application($config);

@@ -7,6 +7,8 @@
 
 namespace tests;
 
+use Yii;
+
 /**
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
  */
@@ -19,7 +21,7 @@ class MailControllerTest extends TestCase
 
         $this->assertMessageNotSent($message);
 
-        $this->runProcess('mail/flush');
+        Yii::$app->runAction('mail/flush');
 
         $this->assertMessageSent($message);
     }
