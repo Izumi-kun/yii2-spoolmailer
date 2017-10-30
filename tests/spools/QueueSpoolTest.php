@@ -30,6 +30,12 @@ class QueueSpoolTest extends TestCase
         $this->getSpool()->flush($this->getMailer());
     }
 
+    public function testFlushQueue()
+    {
+        $this->expectException(NotSupportedException::class);
+        $this->getSpool()->flushQueue($this->getMailer()->getTransport());
+    }
+
     public function testQueueRun()
     {
         $message = $this->queueMessage();
