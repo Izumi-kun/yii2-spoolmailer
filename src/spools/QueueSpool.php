@@ -35,12 +35,17 @@ class QueueSpool extends BaseSpool implements Swift_Spool
     public $jobConfig = ['class' => QueueSpoolJob::class];
 
     /**
+     * @var null|string id of the last added job message.
+     */
+    private $_lastJobId;
+
+    /**
      * @inheritdoc
      */
     public function init()
     {
-        $this->queue = Instance::ensure($this->queue, Queue::className());
         parent::init();
+        $this->queue = Instance::ensure($this->queue, Queue::className());
         $this->setTransport([
             'class' => Swift_SpoolTransport::class,
             'constructArgs' => [$this],
@@ -53,6 +58,14 @@ class QueueSpool extends BaseSpool implements Swift_Spool
     public function flush(BaseMailer $mailer, &$failedRecipients = null)
     {
         throw new NotSupportedException();
+    }
+
+    /**
+     * @return null|string id of the last added job message.
+     */
+    public function getLastJobId()
+    {
+        return $this->_lastJobId;
     }
 
     /**
@@ -84,8 +97,9 @@ class QueueSpool extends BaseSpool implements Swift_Spool
     {
         $config = ArrayHelper::merge($this->jobConfig, ['message' => $message]);
         $job = Yii::createObject($config);
+        $this->_lastJobId = $this->queue->push($job);
 
-        return $this->queue->push($job) !== null;
+        return $this->_lastJobId !== null;
     }
 
     /**

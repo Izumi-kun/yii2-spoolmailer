@@ -50,4 +50,14 @@ class QueueSpoolTest extends TestCase
         $spool->start();
         $this->assertTrue($spool->isStarted());
     }
+
+    public function testJobId()
+    {
+        $this->queueMessage();
+        $spool = $this->getSpool();
+        $jobId = $spool->getLastJobId();
+        $this->assertFalse($spool->queue->isDone($jobId));
+        $this->runProcess('file-queue/run');
+        $this->assertTrue($spool->queue->isDone($jobId));
+    }
 }
