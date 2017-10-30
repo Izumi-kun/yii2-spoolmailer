@@ -8,6 +8,8 @@
 namespace tests;
 
 use izumi\spoolmailer\MailerTransport;
+use Swift_Plugins_ThrottlerPlugin;
+use yii\base\NotSupportedException;
 
 /**
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
@@ -32,5 +34,22 @@ class MailerTransportTest extends TestCase
         $cnt = $transport->send($message->getSwiftMessage(), $failedRecipients);
         $this->assertEquals(0, $cnt);
         $this->assertNotEmpty($failedRecipients);
+    }
+
+    public function testStartStop()
+    {
+        $transport = new MailerTransport($this->getMailer());
+        $transport->stop();
+        $transport->start();
+        $this->assertTrue($transport->ping());
+    }
+
+    public function testRegisterPlugin()
+    {
+        $transport = new MailerTransport($this->getMailer());
+        $plugin = new Swift_Plugins_ThrottlerPlugin(1);
+
+        $this->expectException(NotSupportedException::class);
+        $transport->registerPlugin($plugin);
     }
 }

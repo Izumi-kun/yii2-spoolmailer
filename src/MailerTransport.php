@@ -8,8 +8,11 @@
 namespace izumi\spoolmailer;
 
 use Swift_Events_EventListener;
+use Swift_Message;
 use Swift_Mime_SimpleMessage;
+use Swift_Transport;
 use yii\base\InvalidParamException;
+use yii\base\NotSupportedException;
 use yii\mail\MailerInterface;
 
 /**
@@ -17,7 +20,7 @@ use yii\mail\MailerInterface;
  *
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
  */
-class MailerTransport implements \Swift_Transport
+class MailerTransport implements Swift_Transport
 {
     /**
      * @var MailerInterface
@@ -38,7 +41,7 @@ class MailerTransport implements \Swift_Transport
      */
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
-        if (!$message instanceof \Swift_Message) {
+        if (!$message instanceof Swift_Message) {
             throw new InvalidParamException('The message should be an instance of "Swift_Message".');
         }
         $failedRecipients = (array) $failedRecipients;
@@ -79,6 +82,7 @@ class MailerTransport implements \Swift_Transport
      */
     public function registerPlugin(Swift_Events_EventListener $plugin)
     {
+        throw new NotSupportedException();
     }
 
     /**
