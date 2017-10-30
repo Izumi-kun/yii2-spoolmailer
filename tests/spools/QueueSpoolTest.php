@@ -36,4 +36,12 @@ class QueueSpoolTest extends TestCase
         $this->runProcess('file-queue/run');
         $this->assertMessageSent($message);
     }
+
+    public function testStopStart()
+    {
+        $spool = $this->getSpool();
+        $spool->stop();
+        $spool->start();
+        $this->assertTrue($spool->isStarted());
+    }
 }

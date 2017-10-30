@@ -9,6 +9,8 @@ namespace tests;
 
 use izumi\spoolmailer\MailerTransport;
 use Swift_Plugins_ThrottlerPlugin;
+use tests\app\CustomMessage;
+use yii\base\InvalidParamException;
 use yii\base\NotSupportedException;
 
 /**
@@ -51,5 +53,13 @@ class MailerTransportTest extends TestCase
 
         $this->expectException(NotSupportedException::class);
         $transport->registerPlugin($plugin);
+    }
+
+    public function testIncorrectMessage()
+    {
+        $transport = new MailerTransport($this->getMailer());
+        $message = new CustomMessage();
+        $this->expectException(InvalidParamException::class);
+        $transport->send($message);
     }
 }

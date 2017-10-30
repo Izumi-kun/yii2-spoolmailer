@@ -12,6 +12,7 @@ use Symfony\Component\Process\Process;
 use Yii;
 use yii\mail\MailerInterface;
 use yii\mail\MessageInterface;
+use yii\queue\file\Queue;
 use yii\swiftmailer\Message;
 
 /**
@@ -25,6 +26,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     public function getMailer()
     {
         return Yii::$app->getMailer();
+    }
+
+    /**
+     * @return Queue|object
+     */
+    public function getFileQueue()
+    {
+        return Yii::$app->get('fileQueue');
     }
 
     /**
