@@ -9,11 +9,11 @@ namespace izumi\spoolmailer\spools;
 
 use izumi\spoolmailer\ImportedMessage;
 use Swift_Message;
+use yii\base\BaseObject;
 use yii\base\InvalidConfigException;
-use yii\base\Object;
 use yii\di\Instance;
 use yii\mail\BaseMailer;
-use yii\queue\Job;
+use yii\queue\JobInterface;
 use yii\queue\Queue;
 
 /**
@@ -21,7 +21,7 @@ use yii\queue\Queue;
  *
  * @author Viktor Khokhryakov <viktor.khokhryakov@gmail.com>
  */
-class QueueSpoolJob extends Object implements Job
+class QueueSpoolJob extends BaseObject implements JobInterface
 {
     /**
      * @var array|string the application component ID of the mailer object.
@@ -44,6 +44,7 @@ class QueueSpoolJob extends Object implements Job
 
     /**
      * @param Queue $queue which pushed and is handling the job
+     * @throws InvalidConfigException
      */
     public function execute($queue)
     {
