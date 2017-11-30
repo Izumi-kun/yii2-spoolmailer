@@ -48,7 +48,7 @@ class MailerTransport implements Swift_Transport
         $importedMessage = new ImportedMessage($message);
 
         if ($this->mailer->send($importedMessage)) {
-            return count($importedMessage->getTo());
+            return count((array) $importedMessage->getTo());
         } else {
             $failedRecipients = (array) $importedMessage->getTo();
             return 0;
